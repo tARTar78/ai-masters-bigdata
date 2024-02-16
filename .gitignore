@@ -1,0 +1,27 @@
+# Byte-compiled / optimized Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.suo
+*.ntvs_analysis.dat
+*.ntvs_analysis.dat.lock
+*.njsproj
+*.sln
+*.sw??
+*~
+*.log
+*.bak
+
+# Остальное
+.DS_Store
+Thumbs.db
