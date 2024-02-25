@@ -41,32 +41,10 @@ exec(open(filter_cond_files[0]).read())
 # if -field is given, output all but the given field
 #
 
-if len(sys.argv) == 1:
-  #by default print all fields
-  outfields = ffields
-else:
-  op, field = sys.argv[1][0], sys.argv[1][1:]
-  logging.info(f"OP {op}")
-  logging.info(f"FIELD {field}")
-
-  if not op in "+-" or not field in ffields:
-    logging.critical("The optional argument must start with + or - followed by a valid field")
-    sys.exit(1)
-  elif op == '+':
-    outfields = [ffields[0], field]
-  else:
-    outfields = list(ffields) # like deepcopy, but on the first level only!
-    outfields.remove(field)
-
-
-
 for line in sys.stdin:
-    # skip header
-    if line.startswith(ffields[0]):
-        continue
-
     #unpack into a tuple/dict
-    values = line.rstrip().split('\t')
+    values = line.split('\t')
+    values[-1] = values[-1][:-1]
     hotel_record = dict(zip(ffields, values)) #Hotel(values)
 
     #apply filter conditions
