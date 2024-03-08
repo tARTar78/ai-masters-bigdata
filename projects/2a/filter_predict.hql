@@ -3,7 +3,7 @@ ADD FILE projects/2a/predict.py;
 ADD FILE projects/2a/model.py;
 FROM (
     SELECT * FROM hw2_test
-    WHERE if1 > 20 AND if1 < 40
+    WHERE if1 > 20 AND if1 < 40 AND if1 IS NOT NULL
 ) o
 INSERT OVERWRITE DIRECTORY 'tARTar78_hw2_pred'
 SELECT TRANSFORM(*) 
