@@ -27,7 +27,7 @@ read_opts=dict(
 )
 
 for df in pd.read_csv(sys.stdin, **read_opts):
-    df = df.replace('\\N' , np.nan)
+    df = df.replace({'\\N' : np.nan, "" : np.nan})
     pred = model.predict(df)
     out = zip(df.id, pred)
     print("\n".join(["{0}\t{1}".format(*i) for i in out]))
