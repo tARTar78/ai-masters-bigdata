@@ -38,5 +38,5 @@ preprocessor = ColumnTransformer(
 # Now we have a full prediction pipeline.
 model = Pipeline(steps=[
     ('preprocessor', preprocessor),
-    ('linearregression', LinearRegression())
+    ('linearregression', RandomForestClassifier())
 ])
