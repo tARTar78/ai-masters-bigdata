@@ -1,4 +1,4 @@
-iCREATE TABLE hw2_pred (
+CREATE TABLE hw2_pred (
     id INT,
     prediction DOUBLE
 )
