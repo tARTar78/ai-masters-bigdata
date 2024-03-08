@@ -1,4 +1,4 @@
-CREATE TEMPORARY EXTERNAL TABLE IF NOT EXISTS tARTar78.hw2_test (
+CREATE TEMPORARY EXTERNAL TABLE IF NOT EXISTS hw2_test (
     id INT,
     if_1 INT, if_2 INT, if_3 INT, if_4 INT, if_5 INT, if_6 INT, if_7 INT, if_8 INT, if_9 INT, if_10 INT,
     if_11 INT, if_12 INT, if_13 INT,
