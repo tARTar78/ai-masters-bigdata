@@ -4,6 +4,7 @@ import sys, os
 import logging
 from joblib import load
 import pandas as pd
+import numpy as np
 
 sys.path.append('.')
 from model import fields
@@ -26,6 +27,7 @@ read_opts=dict(
 )
 
 for df in pd.read_csv(sys.stdin, **read_opts):
+    df = df.iloc[:14].replace('\\N',np.nan)
     pred = model.predict(df)
     out = zip(df.id, pred)
     print("\n".join(["{0}\t{1}".format(*i) for i in out]))
