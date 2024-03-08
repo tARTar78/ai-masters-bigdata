@@ -1,0 +1,3 @@
+INSERT OVERWRITE DIRECTORY 'tARTar78_hiveout'
+SELECT *
+FROM hw2_pred;
