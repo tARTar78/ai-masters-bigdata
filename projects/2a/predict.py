@@ -29,6 +29,8 @@ read_opts=dict(
 for df in pd.read_csv(sys.stdin, **read_opts):
     df = df.replace({'\\N': np.nan, '': np.nan}) 
     pred = model.predict(df)
+    if(pred == np.nan or pred == None):
+        pred = 0.01
     pred = max(0.01,pred)
     pred = min(0.99,pred)
     out = zip(df.id, pred)
