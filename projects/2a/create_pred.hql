@@ -1,7 +1,9 @@
 CREATE TABLE hw2_pred (
     id INT,
-    prediction DOUBLE
+    prediction FLOAT
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
+ESCAPED BY '\"'
+LINES TERMINATED BY '\n'
 STORED AS TEXTFILE
 LOCATION "tARTar78_hw2_pred";
