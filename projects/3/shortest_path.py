@@ -4,8 +4,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 from pyspark.sql.functions import col, when
 
-u = int(sys.argv[1])
-v = int(sys.argv[2])
+v = int(sys.argv[1])
+u = int(sys.argv[2])
 path = sys.argv[3]
 output = sys.argv[4]
 
