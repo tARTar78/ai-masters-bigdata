@@ -9,7 +9,7 @@ path = sys.argv[3]
 output = sys.argv[4]
 
 conf = SparkConf()
-sc = SparkContext(appName="Pagerank", conf=conf)
+spark = SparkContext(appName="Pagerank", conf=conf)
 
 graph_schema = StructType(fields=[
     StructField("user_id", LongType()),
@@ -30,3 +30,4 @@ while c != max_length and current_paths.count() > 0:
     c+=1
 
 current_paths.write.csv(output, header=False)
+spark.stop()
