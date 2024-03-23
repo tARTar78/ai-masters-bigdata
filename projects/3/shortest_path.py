@@ -1,5 +1,6 @@
 import sys
-from pyspark import SparkContext, SparkConf, SparkSession
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 from pyspark.sql.functions import col, when
 
