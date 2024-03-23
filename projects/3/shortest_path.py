@@ -9,7 +9,9 @@ path = sys.argv[3]
 output = sys.argv[4]
 
 conf = SparkConf()
-spark = SparkContext(appName="Pagerank", conf=conf)
+sc = SparkContext(appName="Pagerank", conf=conf)
+
+spark = SparkSession.builder.config(conf=conf).appName("Spark SQL").getOrCreate()
 
 graph_schema = StructType(fields=[
     StructField("user_id", LongType()),
