@@ -16,8 +16,8 @@ label_indexer = StringIndexer(inputCol="overall", outputCol="label")
 
 vote_indexer = StringIndexer(inputCol="vote", outputCol="vote1")
 
-assembler = VectorAssembler(inputCols=["features", "comment_length","vote1","verified1"], outputCol="finalfeatures")
+#assembler = VectorAssembler(inputCols=["features", "comment_length","vote1","verified1"], outputCol="finalfeatures")
 
-lr = LinearRegression(featuresCol="finalfeatures", labelCol="label")
+lr = LinearRegression(featuresCol="features", labelCol="label")
 
-pipeline = Pipeline(stages=[tokenizer,swr, hashingTF, vote_indexer, label_indexer, assembler, lr])
+pipeline = Pipeline(stages=[tokenizer,swr, hashingTF, label_indexer, lr])
