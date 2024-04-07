@@ -18,7 +18,6 @@ model = PipelineModel.load(model_path)
 
 data_schema = StructType([
     StructField("id", IntegerType()),
-    StructField("overall", IntegerType()),
     StructField("vote", StringType()),
     StructField("verified", BooleanType()),
     StructField("reviewTime", StringType()),
@@ -30,7 +29,7 @@ data_schema = StructType([
     StructField("unixReviewTime", LongType()),
 ])
 
-data = spark.read.json("/datasets/amazon/train.json", schema = data_schema).cache()
+data = spark.read.json(test_path, schema = data_schema).cache()
 data = data.drop(
   "reviewTime",
   "reviewerID",

@@ -26,7 +26,7 @@ data_schema = StructType([
     StructField("unixReviewTime", LongType()),
 ])
 
-data = spark.read.json("/datasets/amazon/train.json", schema = data_schema).cache()
+data = spark.read.json(dataset_path, schema = data_schema).cache()
 data = data.drop(
   "reviewTime",
   "reviewerID",
