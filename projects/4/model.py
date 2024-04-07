@@ -17,7 +17,7 @@ swr2 = StopWordsRemover(inputCol=tokenizer2.getOutputCol(), outputCol="words_fil
 hashingTF1 = HashingTF(inputCol=swr1.getOutputCol(), outputCol="features1",numFeatures=100, binary=False)
 hashingTF2 = HashingTF(inputCol=swr2.getOutputCol(), outputCol="features2",numFeatures=20, binary=False)
 
-assembler = VectorAssembler(inputCols=["features1","features2", "comment_length","verified1"], outputCol="features")
+assembler = VectorAssembler(inputCols=["features1","features2"], outputCol="features")
 lr = LinearRegression(featuresCol="features", labelCol="overall",maxIter=15,regParam=0.01)
 
 pipeline = Pipeline(stages=[tokenizer1,tokenizer2, swr1, swr2, hashingTF1, hashingTF2,assembler, lr])

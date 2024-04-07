@@ -30,18 +30,17 @@ data_schema = StructType([
 ])
 
 data = spark.read.json(test_path, schema = data_schema).cache()
-data = data.drop(
-  "reviewTime",
-  "reviewerID",
-  "asin",
-  "reviewerName",
-  "unixReviewTime")
-
+#data = data.drop(
+#  "reviewTime",
+#  "reviewerID",
+#  "asin",
+#  "reviewerName",
+#  "unixReviewTime")
 data = data.fillna("0", subset=["reviewText"])
 data = data.fillna("0", subset=["summary"])
-data = data.withColumn("comment_length", f.length(data.reviewText))
-data = data.fillna("0", subset=["vote"])
-data = data.withColumn("verified1", when(data["verified"] == "true", 1).otherwise(0))
+#data = data.withColumn("comment_length", f.length(data.reviewText))
+#data = data.fillna("0", subset=["vote"])
+#data = data.withColumn("verified1", when(data["verified"] == "true", 1).otherwise(0))
 
 predictions = model.transform(data)
 
