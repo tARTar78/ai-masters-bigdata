@@ -5,19 +5,19 @@ from pyspark.ml.feature import *
 from pyspark.sql.functions import col
 from pyspark.ml.feature import VectorAssembler
 
-tokenizer = Tokenizer(inputCol="reviewText", outputCol="words")
+tokenizer1 = Tokenizer(inputCol="reviewText", outputCol="words1")
+tokenizer2 = Tokenizer(inputCol="summary", outputCol="words2")
 
 stop_words = StopWordsRemover.loadDefaultStopWords("english")
-swr = StopWordsRemover(inputCol=tokenizer.getOutputCol(), outputCol="words_filtered", stopWords=stop_words)
+swr1 = StopWordsRemover(inputCol=tokenizer1.getOutputCol(), outputCol="words_filtered1", 
+                       stopWords=stop_words)
+swr2 = StopWordsRemover(inputCol=tokenizer2.getOutputCol(), outputCol="words_filtered2", 
+                       stopWords=stop_words)
 
-hashingTF = HashingTF(inputCol=tokenizer.getOutputCol(), outputCol="features")
+hashingTF1 = HashingTF(inputCol=swr1.getOutputCol(), outputCol="features1",numFeatures=100, binary=False)
+hashingTF2 = HashingTF(inputCol=swr2.getOutputCol(), outputCol="features2",numFeatures=20, binary=False)
 
-label_indexer = StringIndexer(inputCol="overall", outputCol="label")
+assembler = VectorAssembler(inputCols=["features1","features2", "comment_length","verified1"], outputCol="features")
+lr = LinearRegression(featuresCol="features", labelCol="overall",maxIter=15,regParam=0.01)
 
-vote_indexer = StringIndexer(inputCol="vote", outputCol="vote1")
-
-#assembler = VectorAssembler(inputCols=["features", "comment_length","vote1","verified1"], outputCol="finalfeatures")
-
-lr = LinearRegression(featuresCol="features", labelCol="label")
-
-pipeline = Pipeline(stages=[tokenizer,swr, hashingTF, label_indexer, lr])
+pipeline = Pipeline(stages=[tokenizer1,tokenizer2, swr1, swr2, hashingTF1, hashingTF2,assembler, lr])
