@@ -9,6 +9,10 @@ venv/
 env/
 *.env
 
+# MLflow
+mlruns/
+*.sqlite
+
 # IDE и редакторы
 .vscode/
 .idea/
