@@ -58,5 +58,5 @@ if __name__ == "__main__":
         #mlflow.log_param("model_param1", model_param1, overwrite=True)
         #mlflow.log_param("train_path", train_path)
         mlflow.log_metric("log_loss", loss)
-        mlflow.sklearn.log_model(model, "ridge_regression_model")
+        mlflow.sklearn.log_model(model, "model")
 
