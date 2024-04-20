@@ -1,0 +1,9 @@
+name: mla_env
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - pip
+  - scikit-learn
+  - pandas
+  - mlflow
