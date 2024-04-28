@@ -54,7 +54,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 28), schedule_inter
         task_id='predict_task',
         conn_id='spark_default',
         application=f'{base_dir}/inference.py',
-        application_args=['--test-in',f'{base_dir}/tARTar78_test_out','--pred-out', f'{base_dir}/predictions/tARTar78_hw6_prediction.csv','--sklearn-model-in', f'{base_dir}/6.joblib'],
+        application_args=['--test-in',f'{base_dir}/tARTar78_test_out','--pred-out', f'{base_dir}/tARTar78_hw6_prediction.csv','--sklearn-model-in', f'{base_dir}/6.joblib'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
