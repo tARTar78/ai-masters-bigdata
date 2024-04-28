@@ -1,12 +1,13 @@
 from airflow import DAG
-from airflow.contrib.sensors.file_sensor import FileSensor
-from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
-from airflow.operators.bash_operator import BashOperator
+from airflow.sensors.filesystem import FileSensor
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+from airflow.operators.bash import BashOperator
+from airflow.decorators import task
 from datetime import datetime
 
 spark_binary1 = '/usr/bin/spark3-submit'
 
-with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 28), schedule_interval=None, catchup=False) as dag:
+with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 27), schedule_interval=None, catchup=False) as dag:
     base_dir = '{{ dag.conf["base_dir"] if dag else "" }}'
 
     feature_eng_train_task = SparkSubmitOperator(
@@ -43,7 +44,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 28), schedule_inter
         task_id='feature_eng_test_task',
         conn_id='spark_default',
         application=f'{base_dir}/feature_engineering.py',
-        application_args=['--test-in', 'datasets/amazon/amazon_extrasmall_test.json', '--test-out', 'tARTar78_test_out'],
+        application_args=['--test-in', '/datasets/amazon/amazon_extrasmall_test.json', '--test-out', 'tARTar78_test_out'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
