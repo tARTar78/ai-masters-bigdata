@@ -7,13 +7,13 @@ from datetime import datetime
 spark_binary1 = '/usr/bin/spark3-submit'
 
 with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 28), schedule_interval=None, catchup=False) as dag:
-    base_dir = '{{ dag_run.conf["base_dir"] if dag_run else "" }}'
+    base_dir = '{{ dag.conf["base_dir"] if dag else "" }}'
 
     feature_eng_train_task = SparkSubmitOperator(
         task_id='feature_eng_train_task',
         conn_id='spark_default',
         application=f'{base_dir}/feature_engineering.py',
-        application_args=['--train-in', 'datasets/amazon/amazon_extrasmall_train.json', '--train-out', 'tARTar78_train_out'],
+        application_args=['--train-in', '/datasets/amazon/amazon_extrasmall_train.json', '--train-out', 'tARTar78_train_out'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
