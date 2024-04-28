@@ -22,7 +22,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 28), schedule_inter
 
     download_train_task = BashOperator(
         task_id='download_train_task',
-        bash_command=f'hdfs dfs -get {base_dir}/tARTar78_train_out {base_dir}/tARTar78_train_out_local'
+        bash_command=f'hdfs dfs -get /tARTar78_train_out {base_dir}/tARTar78_train_out_local'
     )
 
     train_task = BashOperator(
