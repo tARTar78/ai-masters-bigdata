@@ -9,8 +9,8 @@ from preprocess import pipeline
 import sys
 from pyspark.sql.functions import when
 
-dataset_path = sys.argv[1]
-model_path = sys.argv[2]
+dataset_path = sys.argv[2]
+model_path = sys.argv[4]
 
 data_schema = StructType([
     StructField("id", IntegerType()),

@@ -4,13 +4,16 @@ spark = SparkSession.builder.getOrCreate()
 spark.sparkContext.setLogLevel('WARN')
 
 import joblib
+import sys
+
+#test_in = sys.argv[]
 
 def predict_sentiment(model, features):
     # Предсказание настроения с использованием обученной модели и векторизованных признаков
     return model.predict(features)
 
 #spark = SparkSession.builder.getOrCreate()
-test_data = spark.read.parquet(test_in)
+test_data = spark.read.parquet(test_in1)
 
 # Загрузка обученной модели
 model = joblib.load(sklearn_model_in)
