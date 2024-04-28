@@ -13,7 +13,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 28), schedule_inter
         task_id='feature_eng_train_task',
         conn_id='spark_default',
         application=f'{base_dir}/feature_engineering.py',
-        application_args=['--train-in', '/datasets/amazon/amazon_extrasmall_train.json', '--train-out', 'tARTar78_train_out'],
+        application_args=['--train-in', 'datasets/amazon/amazon_extrasmall_train.json', '--train-out', 'tARTar78_train_out'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
@@ -43,7 +43,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 28), schedule_inter
         task_id='feature_eng_test_task',
         conn_id='spark_default',
         application=f'{base_dir}/feature_engineering.py',
-        application_args=['--test-in', '/datasets/amazon/amazon_extrasmall_test.json', '--test-out', 'tARTar78_test_out'],
+        application_args=['--test-in', 'datasets/amazon/amazon_extrasmall_test.json', '--test-out', 'tARTar78_test_out'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
