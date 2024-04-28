@@ -12,13 +12,16 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 27), schedule_inter
 
     feature_eng_train_task = SparkSubmitOperator(
         task_id='feature_eng_train_task',
-        conn_id='spark_default',
+        #conn_id='spark_default',
         application=f'{base_dir}/feature_engineering.py',
         application_args=['--train-in', '/datasets/amazon/amazon_extrasmall_train.json', '--train-out', 'tARTar78_train_out'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
-        spark_binary=spark_binary1
+        spark_binary=spark_binary1,
+	num_executors = 10,
+	executor_cores=1,
+	executor_memory="2G"
     )
 
     download_train_task = BashOperator(
@@ -48,7 +51,11 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 27), schedule_inter
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
-        spark_binary=spark_binary1
+        spark_binary=spark_binary1,
+        num_executors = 10,
+        executor_cores=1,
+        executor_memory="2G"
+
     )
 
     predict_task = SparkSubmitOperator(
@@ -59,7 +66,10 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 27), schedule_inter
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
-        spark_binary=spark_binary1
+        spark_binary=spark_binary1,
+	num_executors = 10,
+        executor_cores=1,
+        executor_memory="2G"
     )
 
     feature_eng_train_task >> download_train_task >> train_task >> model_sensor >> feature_eng_test_task >> predict_task
