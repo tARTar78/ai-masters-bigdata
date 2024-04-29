@@ -7,7 +7,7 @@ from datetime import datetime
 
 spark_binary1 = '/usr/bin/spark3-submit'
 
-with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 27), schedule_interval=None, catchup=False) as dag:
+with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 29), schedule_interval=None, catchup=False) as dag:
     #base_dir = '{{ dag_run.conf["base_dir"] if dag_run else "" }}'
     base_dir = '{{ dag_run.conf.get("base_dir", "") }}'
     feature_eng_train_task = SparkSubmitOperator(
