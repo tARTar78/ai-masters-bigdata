@@ -1,5 +1,4 @@
-
-m sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 import joblib
