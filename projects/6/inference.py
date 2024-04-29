@@ -6,6 +6,7 @@ spark.sparkContext.setLogLevel('WARN')
 import joblib
 import sys
 from pyspark.sql.functions import pandas_udf, PandasUDFType
+from pyspark.sql.types import FloatType
 
 test_in = sys.argv[2]
 pred_out = sys.argv[4]
