@@ -40,7 +40,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
     model_sensor1 = FileSensor(
         task_id='model_sensor',
         fs_conn_id='hdfs_default',
-        filepath=model_path,
+        filepath=model_path1,
         timeout=5 * 60,  # 5 minutes
         poke_interval=10  # Check every 10 seconds
     )
