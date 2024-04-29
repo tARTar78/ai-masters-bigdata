@@ -31,7 +31,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
 
     train_task = BashOperator(
         task_id='train_task',
-        bash_command=f'/opt/conda/envs/dsenv/bin/python {base_dir}/train.py --train-in {base_dir}/tARTar78_train_out_local --model-out {base_dir}/6.joblib'
+        bash_command=f'/opt/conda/envs/dsenv/bin/python {base_dir}/train1.py --train-in {base_dir}/tARTar78_train_out_local --model-out {base_dir}/6.joblib'
     )
 
     model_path = f"{base_dir}/6.joblib"
