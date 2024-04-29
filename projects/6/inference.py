@@ -38,7 +38,15 @@ predictions = test_data.withColumn("sentiment", predict_sentiment("reviewText"))
 
 # Сохранение предсказаний в выходной файл
 #predictions.write.option("header", True).csv("path/to/output/predictions.csv")
+# Извлечение идентификаторов и предсказаний из DataFrame
+predictions = predictions.select("id", "sentiment")
 
+# Переименование столбца "sentiment" в "pred"
+predictions = predictions.withColumnRenamed("sentiment", "pred")
+
+# Сохранение предсказаний в выходной файл в формате "id,pred"
+predictions.write.option("header", False).mode("overwrite").csv(pred_out)
+predictions.write.option("header", False).mode("overwrite").csv("/users/tARTar78/my")
 
 # Сохранение предсказаний в выходной файл
-predictions.write.option("header", False).mode("overwrite").csv(pred_out)
+#predictions.write.option("header", False).mode("overwrite").csv(pred_out)
