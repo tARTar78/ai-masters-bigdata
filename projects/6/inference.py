@@ -25,4 +25,4 @@ prediction_udf = spark.udf.register("predict_sentiment_udf", lambda features: pr
 predictions = test_data.withColumn("sentiment", prediction_udf("features"))
 
 # Сохранение предсказаний в выходной файл
-predictions.write.csv(pred_out)
+predictions.write.option("header", False).csv(pred_out)
