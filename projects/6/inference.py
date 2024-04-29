@@ -22,7 +22,7 @@ model = joblib.load(sklearn_model_in)
 
 # Применение обученной модели для предсказания настроения
 prediction_udf = spark.udf.register("predict_sentiment_udf", lambda features: predict_sentiment(model, features))
-predictions = test_data.withColumn("sentiment", prediction_udf("features"))
+predictions = test_data.withColumn("sentiment", prediction_udf("reviewText"))
 
 # Сохранение предсказаний в выходной файл
 predictions.write.option("header", False).csv(pred_out)
