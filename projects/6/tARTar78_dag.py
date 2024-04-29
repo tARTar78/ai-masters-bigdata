@@ -4,6 +4,8 @@ from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOpe
 from airflow.operators.bash import BashOperator
 from airflow.decorators import task
 from datetime import datetime
+import os
+from airflow.sensors.python import PythonSensor
 
 spark_binary1 = '/usr/bin/spark3-submit'
 
@@ -43,6 +45,19 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
         poke_interval=10  # Check every 10 seconds
     )
 
+    def check_local_file(filepath):
+	    return os.path.exists(filepath)
+
+    model_path = f"{base_dir}/6.joblib"
+
+    model_sensor1 = PythonSensor(
+        task_id='model_sensor',
+        python_callable=check_local_file,
+        op_args=[model_path],
+        timeout=5 * 60,  # 5 minutes
+        poke_interval=10  # Check every 10 seconds
+    )
+
     feature_eng_test_task = SparkSubmitOperator(
         task_id='feature_eng_test_task',
         conn_id='spark_default',
@@ -72,5 +87,5 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
         executor_memory="2G"
     )
 
-    feature_eng_train_task >> download_train_task >> train_task >> model_sensor >> feature_eng_test_task >> predict_task
+    feature_eng_train_task >> download_train_task >> train_task >> model_sensor1 >> feature_eng_test_task >> predict_task
 
