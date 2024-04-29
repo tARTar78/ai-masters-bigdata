@@ -36,8 +36,8 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
         bash_command=f'/opt/conda/envs/dsenv/bin/python {base_dir}/train1.py --train-in {base_dir}/tARTar78_train_out_local --model-out {base_dir}/6.joblib'
     )
 
-    model_path = f"{base_dir}/6.joblib"
-    model_sensor = FileSensor(
+    model_path1 = f"{base_dir}/6.joblib"
+    model_sensor1 = FileSensor(
         task_id='model_sensor',
         fs_conn_id='hdfs_default',
         filepath=model_path,
@@ -50,7 +50,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
 
     model_path = f"{base_dir}/6.joblib"
 
-    model_sensor1 = PythonSensor(
+    model_sensor = PythonSensor(
         task_id='model_sensor',
         python_callable=check_local_file,
         op_args=[model_path],
@@ -87,5 +87,5 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
         executor_memory="2G"
     )
 
-    feature_eng_train_task >> download_train_task >> train_task >> model_sensor1 >> feature_eng_test_task >> predict_task
+    feature_eng_train_task >> download_train_task >> train_task >> model_sensor >> feature_eng_test_task >> predict_task
 
