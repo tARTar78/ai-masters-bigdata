@@ -14,7 +14,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 29), schedule_inter
         task_id='feature_eng_train_task',
         conn_id='spark_default',
         application=f'{base_dir}/feature_engineering.py',
-        application_args=['--train-in', '/datasets/amazon/amazon_extrasmall_train.json', '--train-out', 'tARTar78_train_out'],
+        application_args=['--train-in', f'{base_dir}/datasets/amazon/amazon_extrasmall_train.json', '--train-out', f'{base_dir}/tARTar78_train_out'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
@@ -26,7 +26,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 29), schedule_inter
 
     download_train_task = BashOperator(
         task_id='download_train_task',
-        bash_command=f'hdfs dfs -get tARTar78_train_out {base_dir}/tARTar78_train_out_local'
+        bash_command=f'hdfs dfs -get {base_dir}/tARTar78_train_out {base_dir}/tARTar78_train_out_local'
     )
 
     train_task = BashOperator(
@@ -47,7 +47,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 29), schedule_inter
         task_id='feature_eng_test_task',
         conn_id='spark_default',
         application=f'{base_dir}/feature_engineering.py',
-        application_args=['--test-in', '/datasets/amazon/amazon_extrasmall_test.json', '--test-out', 'tARTar78_test_out'],
+        application_args=['--test-in', f'{base_dir}/datasets/amazon/amazon_extrasmall_test.json', '--test-out', f'{base_dir}/tARTar78_test_out'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
@@ -62,7 +62,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 5, 29), schedule_inter
         task_id='predict_task',
         conn_id='spark_default',
         application=f'{base_dir}/inference.py',
-        application_args=['--test-in','tARTar78_test_out','--pred-out', 'tARTar78_hw6_prediction','--sklearn-model-in', f'{base_dir}/6.joblib'],
+        application_args=['--test-in',f'{base_dir}/tARTar78_test_out','--pred-out', f'{base_dir}/tARTar78_hw6_prediction','--sklearn-model-in', f'{base_dir}/6.joblib'],
         env_vars={
             'PYSPARK_PYTHON': '/opt/conda/envs/dsenv/bin/python'
         },
