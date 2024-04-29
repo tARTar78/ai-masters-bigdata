@@ -25,7 +25,7 @@ model = joblib.load(sklearn_model_in)
 #prediction_udf = spark.udf.register("predict_sentiment_udf", lambda features: predict_sentiment(model, features))
 #predictions = test_data.withColumn("sentiment", prediction_udf("reviewText"))
 
-@pandas_udf(returnType=PandasUDFType.SCALAR)
+@pandas_udf(returnType=FloatType())
 def predict_sentiment(series):
     # Предсказание настроения с использованием обученной модели
     predictions = model.predict(series)
