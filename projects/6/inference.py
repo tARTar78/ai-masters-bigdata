@@ -15,7 +15,7 @@ def predict_sentiment(model, features):
     return model.predict(features)
 
 #spark = SparkSession.builder.getOrCreate()
-test_data = spark.read.load(test_in)
+test_data = spark.read_parquet(test_in)
 
 # Загрузка обученной модели
 model = joblib.load(sklearn_model_in)
