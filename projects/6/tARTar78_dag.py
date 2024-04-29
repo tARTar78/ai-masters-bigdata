@@ -36,14 +36,14 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
         bash_command=f'/opt/conda/envs/dsenv/bin/python {base_dir}/train1.py --train-in {base_dir}/tARTar78_train_out_local --model-out {base_dir}/6.joblib'
     )
 
-    model_path1 = f"{base_dir}/6.joblib"
-    model_sensor1 = FileSensor(
-        task_id='model_sensor1',
-        fs_conn_id='hdfs_default',
-        filepath=model_path1,
-        timeout=5 * 60,  # 5 minutes
-        poke_interval=10  # Check every 10 seconds
-    )
+#    model_path1 = f"{base_dir}/6.joblib"
+#    model_sensor1 = FileSensor(
+#        task_id='model_sensor1',
+#        fs_conn_id='hdfs_default',
+#        filepath=model_path1,
+#        timeout=5 * 60,  # 5 minutes
+#        poke_interval=10  # Check every 10 seconds
+#    )
 
     def check_local_file(filepath):
 	    return os.path.exists(filepath)
