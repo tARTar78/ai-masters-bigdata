@@ -1,5 +1,5 @@
 from pyspark.ml.feature import Tokenizer, HashingTF, StringIndexer
-from pyspark.ml.regression import LogisticRegression
+#from pyspark.ml.regression import LogisticRegression
 from pyspark.ml import Pipeline
 from pyspark.ml.feature import *
 from pyspark.sql.functions import col
