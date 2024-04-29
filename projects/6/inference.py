@@ -44,9 +44,17 @@ predictions = predictions.select("id", "sentiment")
 # Переименование столбца "sentiment" в "pred"
 predictions = predictions.withColumnRenamed("sentiment", "pred")
 
+original_count = test_data.count()
+predictions_count = predictions.count()
+
+if original_count == predictions_count:
+    # Сохранение предсказаний в выходной файл в формате "id,pred"
+    predictions.write.option("header", False).mode("overwrite").csv(pred_out)
+else:
+    print(f"Длина начального датасета ({original_count}) не совпадает с длиной выходного DataFrame ({predictions_count}). Результаты не будут сохранены.")
 # Сохранение предсказаний в выходной файл в формате "id,pred"
-predictions.write.option("header", False).mode("overwrite").csv(pred_out)
-predictions.write.option("header", False).mode("overwrite").csv("/users/tARTar78/my")
+#predictions.write.option("header", False).mode("overwrite").csv(pred_out)
+#predictions.write.option("header", False).mode("overwrite").csv("/users/tARTar78/my")
 
 # Сохранение предсказаний в выходной файл
 #predictions.write.option("header", False).mode("overwrite").csv(pred_out)
