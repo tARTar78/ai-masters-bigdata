@@ -9,7 +9,7 @@ base_dir = '/opt/airflow/airflow_home/dags/example'
 pyspark_python = "/opt/conda/envs/dsenv/bin/python"
 
 with DAG(
-        dag_id="my_first_dag",
+        dag_id="tARTar78_dag",
         start_date=datetime(2023, 4, 26),
         schedule=None,
         catchup=False,
