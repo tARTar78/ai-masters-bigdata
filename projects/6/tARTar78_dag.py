@@ -38,7 +38,7 @@ with DAG(dag_id='tARTar78_dag', start_date=datetime(2024, 4, 29), schedule_inter
 
     model_path1 = f"{base_dir}/6.joblib"
     model_sensor1 = FileSensor(
-        task_id='model_sensor',
+        task_id='model_sensor1',
         fs_conn_id='hdfs_default',
         filepath=model_path1,
         timeout=5 * 60,  # 5 minutes
